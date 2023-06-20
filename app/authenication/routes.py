@@ -37,15 +37,19 @@ def signin():
             password = form.password.data
             print(email,password)
 
-            logged_user = User.query.filter(User.email == email).first()
+            logged_user = User.query.filter_by(email = email).first()
+            print(logged_user)
             if logged_user and check_password_hash(logged_user.password, password):
+                print(logged_user, "In the success")
                 login_user(logged_user)
                 flash('You were successful in your initiation. Congratulations, and welcome to the Jedi Knights', 'auth-success')
                 return redirect(url_for('site.profile'))
             else:
+                print("else")
                 flash('You have failed in your attempt to access thid content.', 'auth-failed')
     except:
         raise Exception('Invalid form data: Please check your form')
+    print("pass the if else")
     return render_template('sign_in.html', form=form)
 
 @auth.route('/logout')
