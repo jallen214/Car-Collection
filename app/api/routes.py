@@ -57,6 +57,7 @@ def update_contact(current_user_token, id):
 def delete_contact(current_user_token, id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
+    db.session.commit()
     response = contact_schema.dump(contact)
     return jsonify(response)
 
